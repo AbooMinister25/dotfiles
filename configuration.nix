@@ -133,10 +133,6 @@
     # Authentication Agent
     polkit-kde-agent
 
-    # sddm theme
-    sddm-sugar-dark
-    sddm-chili-theme
-
     vulkan-tools
   ];
 
