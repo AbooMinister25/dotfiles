@@ -1,0 +1,34 @@
+[colors]
+ansi = [
+  "#343F44",
+  "#E67E80",
+  "#A7C080",
+  "#DBBC7F",
+  "#7FBBB3",
+  "#D699B6",
+  "#83C092",
+  "#D3C6AA",
+]
+
+brights = [
+  "#475258",
+  "#E67E80",
+  "#A7C080",
+  "#DBBC7F",
+  "#7FBBB3",
+  "#D699B6",
+  "#83C092",
+  "#D3C6AA",  
+]
+
+background = "#2D353B"
+foreground = "#D3C6AA"
+cursor = "#D3C6AA"
+cursor_bg = "#D3C6AA"
+cursor_fg = "#2D353B"
+
+[metadata]
+aliases = []
+author = ""
+name = "Everforest (Custom)"
+origin_url = "https://github.com/sainnhe/everforest"

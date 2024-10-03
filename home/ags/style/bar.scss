@@ -1,0 +1,80 @@
+@use "themes/everforest";
+
+* {
+    font-family: "Iosevka Nerd Font";
+}
+
+window.bar {
+    background-color: everforest.$bg;
+    font-family: "Iosevka Nerd Font";
+}
+
+.bar-applet {
+    background-color: everforest.$bg2;
+    margin: 0.5rem 0.3rem;
+}
+
+.launcher {
+    margin: 0.5rem 0.3rem;
+}
+
+.launcher-button {
+    all: unset;
+}
+
+.launcher-button {
+    padding: 0.3rem;
+}
+
+.launcher-icon {
+    font-size: 25px;
+    color: everforest.$fg;
+}
+
+.workspaces-box {
+    background-color: everforest.$bg2;
+    padding: 0.5rem 0.1rem;
+}
+
+.workspace-button {
+    all: unset;
+}
+
+.workspace-button {
+    margin: 0 1em;
+    padding: 1em;
+    font-size: 0.5em;
+    min-width: 0.5em;
+    min-height: 0.5em;
+    border-radius: 50%;
+    transition: 300ms * .5;
+    background-color: transparentize(everforest.$fg, 0.5);
+}
+
+.active {
+    background: everforest.$aqua;
+    min-width: 4em;
+    border-radius: 10em;
+}
+
+.occupied {
+    background: everforest.$fg;
+}
+
+.urgent {
+    background: everforest.$red;
+}
+
+.clock {
+    font-family: "Iosevka Nerd Font";
+    margin: 0.5rem 0.3rem;
+    font-size: 16px;
+    background: everforest.$bg2;
+    padding: 0.3rem;
+}
+
+.clock_label {
+    font-size: 16px;
+    padding: 0.2rem;
+    padding: 0.3rem;
+}

@@ -1,0 +1,4 @@
+[general]
+early-exit = true
+copy-command = "wl-copy"
+output-filename = "~/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"

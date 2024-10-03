@@ -1,0 +1,21 @@
+@use "../themes/everforest";
+
+@import "workspaces";
+@import "launcher";
+@import "clock";
+
+* {
+    font-family: "Iosevka Nerd Font";
+}
+
+window.bar {
+    background-color: everforest.$bg;
+    border-radius: 5px;
+    font-family: "Iosevka Nerd Font";
+}
+
+.bar-applet {
+    background-color: everforest.$bg2;
+    margin: 0.5rem 0.3rem;
+    border-radius: 5px;
+}
