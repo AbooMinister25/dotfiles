@@ -4,14 +4,6 @@
     all: unset;
 }
 
-.launcher-button {
-    padding: 0.3rem;
-
-    &:hover {
-        opacity: 0.8;
-    }
-}
-
 .launcher-icon {
     font-size: 25px;
     color: everforest.$fg;

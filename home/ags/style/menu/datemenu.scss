@@ -1,0 +1,68 @@
+@use 'sass:color';
+@use "../themes/everforest";
+
+
+.dropdown {
+    margin: 1rem;
+    background-color: everforest.$bg_dim;
+    border-radius: 10px;
+    font-family: "Iosevka Nerd Font";
+}
+
+.date-menu-item-container {
+    min-width: 27em;
+    min-height: 6em;
+    margin: 1em;
+    background-color: transparentize(everforest.$bg, 0.29);
+    border-radius: 5px;
+}
+
+.calendar {
+    all: unset;
+    padding: 0.35em;
+    border-radius: 5px;
+    background-color: transparentize(everforest.$bg, 0.29);
+    color: everforest.$fg;
+    font-size: 1.1em;
+
+    &.header {
+        border: none;
+    }
+
+    &.highlight {
+        color: everforest.$green;
+    }
+
+    &:selected {
+        box-shadow: inset 0 -4px 0 0 transparentize(everforest.$green, 0.5),
+            inset 0 0 0 1px transparentize(everforest.$green, 0.5);
+        border: none;
+    }
+
+    &:indeterminate {
+        color: transparentize(everforest.$fg, 0.5);
+    }
+
+    &.button {
+        color: everforest.$fg;
+        font-weight: 900;
+        font-size: 900em;
+    }
+}
+
+.clock-box {
+    padding: 0.35em;
+    color: everforest.$fg;
+}
+
+.clock-time {
+    font-size: 5em;
+}
+
+.clock-period {
+    margin-left: 0;
+    padding: 0;
+    font-size: 2em;
+    margin-bottom: 0.45em;
+    color: everforest.$orange;
+}

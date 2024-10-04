@@ -7,8 +7,12 @@ const time = Utils.derive([clock], (c) => c.format("%a, %I:%M") || "")
 
 export const Date = () => Widget.Box({
     class_name: "bar-applet",
-    children: [Widget.Label({
-        class_name: "clock_label",
-        label: time.bind()
-    })]
+    children: [Widget.Button({
+        child: Widget.Label({
+            class_name: "clock_label",
+            label: time.bind()
+        }),
+        onClicked: () => App.toggleWindow("dropdown-1-date"),
+        class_name: "bar-button",
+    })],
 });

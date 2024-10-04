@@ -9,13 +9,22 @@
 }
 
 window.bar {
-    background-color: everforest.$bg;
+    background-color: everforest.$bg_dim;
     border-radius: 5px;
     font-family: "Iosevka Nerd Font";
 }
 
 .bar-applet {
-    background-color: everforest.$bg2;
+    background-color: everforest.$bg;
     margin: 0.5rem 0.3rem;
     border-radius: 5px;
+}
+
+.bar-button {
+    all: unset;
+    padding: 0.3rem;
+
+    &:hover {
+        opacity: 0.8;
+    }
 }

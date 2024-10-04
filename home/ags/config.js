@@ -1,5 +1,6 @@
 import { applauncher } from "./applauncher.js"
 import { Bar } from "./widgets/bar/index.js"
+import menus from "./widgets/menu/index.js";
 
 
 const scss = `${App.configDir}/style/style.scss`;
@@ -11,6 +12,7 @@ App.config({
   windows: [
     applauncher,
     Bar(),
-    Bar(1)
+    Bar(1),
+    ...menus,
   ]
 })
