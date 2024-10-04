@@ -39,7 +39,7 @@
         "$mod, Right, split-workspace, r+1"
         "$mod, F, fullscreen"
         "$mod, X, togglefloating"
-        "$mod, A, exec, ags -t applauncher"
+        "$mod, A, exec, ags"
         "$mod Shift, S, exec, grim -g \"$(slurp)\" - | satty --filename -"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"

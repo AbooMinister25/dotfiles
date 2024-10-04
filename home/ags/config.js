@@ -1,4 +1,3 @@
-import { applauncher } from "./applauncher.js"
 import { Bar } from "./widgets/bar/index.js"
 import menus from "./widgets/menu/index.js";
 
@@ -10,7 +9,6 @@ Utils.exec(`sass ${scss} ${css}`)
 App.config({
   style: css,
   windows: [
-    applauncher,
     Bar(),
     Bar(1),
     ...menus,
