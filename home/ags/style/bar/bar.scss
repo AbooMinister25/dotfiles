@@ -3,6 +3,7 @@
 @import "workspaces";
 @import "launcher";
 @import "clock";
+@import "network";
 
 * {
     font-family: "Iosevka Nerd Font";
@@ -27,4 +28,8 @@ window.bar {
     &:hover {
         opacity: 0.8;
     }
+}
+
+.bar-button-icon {
+    padding-right: 0.5em;
 }

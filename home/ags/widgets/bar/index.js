@@ -1,6 +1,7 @@
 import { Launcher } from "./launcher.js"
 import { Workspaces } from "./workspaces.js";
 import { Date } from "./date.js"
+import { Network } from "./network.js";
 
 export const Bar = (monitor = 0) => {
     Widget.Window({
@@ -23,7 +24,7 @@ export const Bar = (monitor = 0) => {
             endWidget: Widget.Box({
                 hpack: "end",
                 hexpand: true,
-                children: [Date()],
+                children: [Network(), Date()],
                 css: "margin-right: 1rem;"
             })
         }),

@@ -33,8 +33,8 @@ function OSDIcon() {
                 () => {
                     self.icon =
                         audio.speaker.volume == 0
-                            ? "/home/rcyclegar/nixos-config/home/ags/assets/volume-off.svg"
-                            : "/home/rcyclegar/nixos-config/home/ags/assets/volume.svg";
+                            ? "volume-off-symbolic"
+                            : "volume-symbolic";
                 },
                 "notify::volume"
             );

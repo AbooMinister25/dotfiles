@@ -1,0 +1,17 @@
+@use "../themes/everforest";
+
+.nw-disconnected {
+    color: everforest.$grey1;
+}
+
+.nw-connecting {
+    color: everforest.$yellow;
+}
+
+.nw-alert {
+    color: everforest.$red;
+}
+
+.nw-connected {
+    color: everforest.$green;
+}

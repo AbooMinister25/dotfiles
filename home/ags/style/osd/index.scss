@@ -41,11 +41,13 @@ window.osd {
 }
 
 .osd-icon {
+    color: everforest.$fg;
     font-size: 25px;
     margin-top: 1em;
 }
 
 .osd-label {
+    color: everforest.$fg;
     font-size: 15px;
     margin-bottom: 1em;
 }
