@@ -1,4 +1,5 @@
 import { Bar } from "./widgets/bar/index.js"
+import { OSD } from "./widgets/osd/index.js";
 import menus from "./widgets/menu/index.js";
 
 
@@ -11,6 +12,7 @@ App.config({
   windows: [
     Bar(),
     Bar(1),
+    OSD(),
     ...menus,
   ]
 })

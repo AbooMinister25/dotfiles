@@ -1,0 +1,51 @@
+@use "../themes/everforest";
+
+window.osd {
+    background-color: everforest.$bg_dim;
+    border-radius: 5px;
+}
+
+.osd-container {
+    margin: 1.5em;
+}
+
+.osd-bar {
+    levelbar * {
+        transition: 200ms;
+    }
+
+    trough {
+        min-height: 10em;
+        min-width: 0;
+    }
+
+    block {
+        border-radius: 1px;
+
+        &.empty {
+            background: everforest.$grey0;
+        }
+
+        &.filled {
+            background: everforest.$blue;
+        }
+    }
+
+    &.overflow {
+        block {
+            &.filled {
+                background: everforest.$orange;
+            }
+        }
+    }
+}
+
+.osd-icon {
+    font-size: 25px;
+    margin-top: 1em;
+}
+
+.osd-label {
+    font-size: 15px;
+    margin-bottom: 1em;
+}

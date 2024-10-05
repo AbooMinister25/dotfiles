@@ -71,6 +71,7 @@ in
     wl-clipboard
     grim
     slurp
+    playerctl
 
     # Applications
     discord
