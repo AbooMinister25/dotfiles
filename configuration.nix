@@ -73,6 +73,10 @@
         persistencedSha256 = lib.fakeSha256;
       };
     };
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
   };
   
   security = {

@@ -1,0 +1,35 @@
+@use "sass:color";
+@use "../themes/everforest";
+
+.network-menu-item-container {
+    min-width: 27em;
+    min-height: 6em;
+    margin: 1em;
+    background-color: transparentize(everforest.$bg, 0.29);
+    border-radius: 5px;
+}
+
+.network-menu-label {
+    padding: 1em;
+    color: everforest.$purple;
+    font-weight: bold;
+}
+
+.network-menu-items {
+    padding: 1em;
+}
+
+.network-icon {
+    font-size: 1.3em;
+    color: everforest.$purple;
+    margin-right: 1em;
+}
+
+.active-connection {
+    font-weight: bold;
+}
+
+.connection-status {
+    font-size: 0.9em;
+    opacity: 0.8;
+}

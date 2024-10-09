@@ -1,13 +1,5 @@
-@use 'sass:color';
+@use "sass:color";
 @use "../themes/everforest";
-
-
-.dropdown {
-    margin: 1rem;
-    background-color: everforest.$bg_dim;
-    border-radius: 10px;
-    font-family: "Iosevka Nerd Font";
-}
 
 .date-menu-item-container {
     min-width: 27em;

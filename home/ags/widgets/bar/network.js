@@ -78,6 +78,7 @@ export const Network = () =>
                     ],
                 }),
                 class_name: "bar-button",
+                onClicked: () => App.toggleWindow("dropdown-1-network")
             }),
         ],
     });

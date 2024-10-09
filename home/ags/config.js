@@ -6,9 +6,8 @@ const scss = `${App.configDir}/style/style.scss`;
 const css = `/tmp/style.css`;
 Utils.exec(`sass ${scss} ${css}`);
 
+App.addIcons(`${App.configDir}/assets/`);
 App.config({
     style: css,
     windows: [Bar(), Bar(1), OSD(), ...menus],
 });
-
-App.addIcons(`${App.configDir}/assets`);
