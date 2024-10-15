@@ -1,8 +1,13 @@
-{ config, pkgs, ... }:
+{ inputs, ... }: { config, pkgs, ... }:
 
 {
-  home.file.".config/ags" = {
-    source = ./ags;
-    recursive = true;
+  imports = [ inputs.ags.homeManagerModules.default ];
+  programs.ags = {
+    enable = true;
+    configDir = ./ags;
+
+    extraPackages = with pkgs; [
+      libnotify
+    ];
   };
 }

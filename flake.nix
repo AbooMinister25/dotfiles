@@ -22,6 +22,8 @@
     };
 
     firefox-gnome-theme = { url = "github:rafaelmardojai/firefox-gnome-theme"; flake = false; };
+
+    ags.url = "github:Aylur/ags";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, split-monitor-workspaces, nixos-cosmic, ...}@inputs: {

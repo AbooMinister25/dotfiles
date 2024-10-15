@@ -6,10 +6,10 @@ in
 {
   imports = [
     (import ./hyprland.nix  { inherit inputs; })
+    (import ./ags.nix  { inherit inputs; })
     (import ./firefox.nix  { inherit inputs; })
     ./hyprlock.nix
     ./hyprpaper.nix
-    ./ags.nix
     ./wezterm.nix
     ./rofi.nix
     ./fish.nix
@@ -83,9 +83,7 @@ in
     # Development
     nil
     dart-sass
-
-    # AGS
-    ags
+    devenv
 
     # Fonts
     ( nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })

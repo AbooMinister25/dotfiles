@@ -109,30 +109,93 @@ const WiFi = () => {
                         vpack: "center",
                         hpack: "end",
                         class_name: "menu-icon-button",
-                        // child: Widget.Icon({
-                        //     icon: "view-refresh-symbolic",
-                        // }),
+                        child: Widget.Icon({
+                            icon: "view-refresh-symbolic",
+                        }),
+                        on_clicked: () => {
+                            network.wifi.enabled = true;
+                            network.wifi.scan();
+                        },
                     }),
                 ],
             }),
             Widget.Box({
                 class_name: "network-menu-items",
                 vertical: true,
-                children: [
-                    Widget.Box({
-                        class_name: "wap-stating",
-                        setup: (self) => {
-                            // renderWapStaging(self, network);
+                setup: (self) => {
+                    self.bssid = "";
+                    const entry = Widget.Entry({
+                        visible: true,
+                        placeholder_text: "Enter Password: ",
+                        visibility: false,
+                        onAccept: (inp) => {
+                            Utils.execAsync(
+                                `nmcli device wifi connect ${self.bssid} password ${inp.text}`
+                            );
                         },
-                    }),
-                    Widget.Box({
-                        class_name: "available-waps",
-                        vertical: true,
-                        setup: (self) => {
-                            // renderWAPs(self, network, Staging, Connecting);
-                        },
-                    }),
-                ],
+                    });
+                    self.hook(
+                        network,
+                        () =>
+                            (self.children = network.wifi.access_points
+                                .sort((a, b) => b.strength - a.strength)
+                                .slice(0, 10)
+                                .map((ap) =>
+                                    Widget.Button({
+                                        on_clicked: () => {
+                                            self.bssid = ap.bssid;
+                                            Utils.execAsync(
+                                                `nmcli device wifi connect ${ap.bssid}`
+                                            ).catch(
+                                                (err) => (entry.visible = true)
+                                            );
+                                            self.bssid = "";
+                                        },
+                                        child: Widget.Box({
+                                            children: [
+                                                Widget.Icon({
+                                                    icon: "wifi-symbolic",
+                                                    class_name: "network-icon",
+                                                }),
+                                                Widget.Label({
+                                                    class_name:
+                                                        "active-connection",
+                                                    label: ap.ssid || "",
+                                                }),
+                                                Widget.Icon({
+                                                    icon: "check-symbolic",
+                                                    hexpand: true,
+                                                    hpack: "end",
+                                                    setup: (self) =>
+                                                        Utils.idle(() => {
+                                                            if (
+                                                                !self.is_destroyed
+                                                            )
+                                                                self.visible =
+                                                                    ap.active;
+                                                        }),
+                                                }),
+                                            ],
+                                        }),
+                                    })
+                                ))
+                    );
+                },
+                // children: [
+                //     Widget.Box({
+                //         class_name: "wap-stating",
+                //         setup: (self) => {
+                //             // renderWapStaging(self, network);
+                //         },
+                //     }),
+                //     Widget.Box({
+                //         class_name: "available-waps",
+                //         vertical: true,
+                //         setup: (self) => {
+                //             // renderWAPs(self, network, Staging, Connecting);
+                //         },
+                //     }),
+                // ],
             }),
         ],
     });
