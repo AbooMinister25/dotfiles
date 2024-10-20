@@ -79,6 +79,7 @@ in
     spotify
     vial
     bitwarden-desktop
+    easyeffects
 
     # Development
     nil

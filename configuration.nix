@@ -113,9 +113,15 @@
     };
   };
 
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
+  };
+
   users.users.rcyclegar = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" ];
     shell = pkgs.fish;
   };
 
