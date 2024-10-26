@@ -75,7 +75,6 @@ in
 
     # Applications
     discord
-    vscode
     spotify
     vial
     bitwarden-desktop
@@ -95,6 +94,11 @@ in
 
   programs.kitty.enable = true;
   services.ssh-agent.enable = true;
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
 
   home.stateVersion = "23.11";
 
