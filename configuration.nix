@@ -37,6 +37,7 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+    udev.packages = [ pkgs.via ];
   };
 
   programs = {

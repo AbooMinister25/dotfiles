@@ -79,6 +79,8 @@ in
     vial
     bitwarden-desktop
     easyeffects
+    google-chrome
+    via
 
     # Development
     nil
