@@ -38,6 +38,7 @@
       pulse.enable = true;
     };
     udev.packages = [ pkgs.via ];
+    gnome.gnome-keyring.enable = true;
   };
 
   programs = {
@@ -52,9 +53,9 @@
     fish = {
       enable = true;
     };
-    ssh = {
-      startAgent = true;
-    };
+    # ssh = {
+    #   startAgent = true;
+    # };
   };
 
   hardware = {
@@ -81,7 +82,10 @@
   };
   
   security = {
-    pam.services.hyprlock = {};
+    pam.services = {
+      hyprlock = {};
+      greetd.enableGnomeKeyring = true;
+    };
     rtkit = {
       enable = true;
     };
@@ -117,6 +121,17 @@
   virtualisation = {
     docker = {
       enable = true;
+    };
+  };
+
+  systemd.services = {
+    gnome-keyring-ssh = {
+      description = "Run gnome-keyring-daemon on startup with ssh.";
+      script = ''
+        eval $(/run/wrappers/bin/gnome-keyring-daemon --replace --daemonize --components=pkcs11,secrets,ssh);
+        export SSH_AUTH_SOCK;
+      '';
+      wantedBy = [ "multi-user.target" ];
     };
   };
 
