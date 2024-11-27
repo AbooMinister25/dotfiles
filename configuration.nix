@@ -131,7 +131,7 @@
     gnome-keyring-ssh = {
       description = "Run gnome-keyring-daemon on startup with ssh.";
       script = ''
-        eval $(/run/wrappers/bin/gnome-keyring-daemon --replace --daemonize --components=secrets,ssh);
+        eval $(/run/wrappers/bin/gnome-keyring-daemon --start --daemonize --components=secrets,ssh);
         export SSH_AUTH_SOCK;
       '';
       wantedBy = [ "multi-user.target" ];
