@@ -27,6 +27,7 @@ in
     TERM = "wezterm";
     XCURSOR_THEME = "everforest-cursors";
     XCURSOR_SIZE = "28";
+    SSH_AUTH_SOCK = "/run/user/$(id -u)/keyring/ssh";
   };
 
   home.pointerCursor = {

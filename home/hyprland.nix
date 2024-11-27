@@ -9,7 +9,6 @@
         "ags"
         "swaync"
         "systemctl --user start plasma-polkit-agent"
-        "export SSH_AUTH_SOCK=/run/user/$(id -u)/keyring/ssh"
       ];
 
       monitor = [
