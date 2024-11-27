@@ -56,9 +56,6 @@
     seahorse = {
       enable = true;
     };
-    # ssh = {
-    #   startAgent = true;
-    # };
   };
 
   hardware = {
@@ -88,6 +85,7 @@
     pam.services = {
       hyprlock = {};
       greetd.enableGnomeKeyring = true;
+      login.enableGnomeKeyring = true;
     };
     rtkit = {
       enable = true;
@@ -127,16 +125,16 @@
     };
   };
 
-  systemd.services = {
-    gnome-keyring-ssh = {
-      description = "Run gnome-keyring-daemon on startup with ssh.";
-      script = ''
-        eval $(/run/wrappers/bin/gnome-keyring-daemon --start --daemonize --components=secrets,ssh);
-        export SSH_AUTH_SOCK;
-      '';
-      wantedBy = [ "multi-user.target" ];
-    };
-  };
+  # systemd.services = {
+  #   gnome-keyring-ssh = {
+  #     description = "Run gnome-keyring-daemon on startup with ssh.";
+  #     script = ''
+  #       eval $(/run/wrappers/bin/gnome-keyring-daemon --start --daemonize --components=secrets,ssh);
+  #       export SSH_AUTH_SOCK;
+  #     '';
+  #     wantedBy = [ "multi-user.target" ];
+  #   };
+  # };
 
   users.users.rcyclegar = {
     isNormalUser = true;

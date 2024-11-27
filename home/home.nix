@@ -95,7 +95,12 @@ in
   ];
 
   programs.kitty.enable = true;
-  services.ssh-agent.enable = true;
+  # services.ssh-agent.enable = true;
+  services.gnome-keyring.enable = true;
+  services.gnome-keyring.components = [
+    "ssh"
+    "secrets"
+  ];
 
   programs.vscode = {
     enable = true;
