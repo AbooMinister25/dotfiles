@@ -25,6 +25,7 @@ in
 
   home.sessionVariables = {
     TERM = "wezterm";
+    BROWSER = "firefox";
     XCURSOR_THEME = "everforest-cursors";
     XCURSOR_SIZE = "28";
     SSH_AUTH_SOCK = "/run/user/$(id -u)/keyring/ssh";
@@ -73,6 +74,7 @@ in
     grim
     slurp
     playerctl
+    xdg-utils
 
     # Applications
     discord
@@ -96,7 +98,6 @@ in
   ];
 
   programs.kitty.enable = true;
-  # services.ssh-agent.enable = true;
   services.gnome-keyring.enable = true;
   services.gnome-keyring.components = [
     "ssh"
