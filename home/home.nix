@@ -95,6 +95,7 @@ in
   ] ++ [
     pkgs-unstable.satty
     pkgs-unstable.nwg-dock-hyprland
+    inputs.astal.packages.${system}.default
   ];
 
   programs.kitty.enable = true;

@@ -56,6 +56,7 @@
     seahorse = {
       enable = true;
     };
+    virt-manager.enable = true;
   };
 
   hardware = {
@@ -124,13 +125,21 @@
     docker = {
       enable = true;
     };
+    libvirtd = {
+      enable = true;
+    };
+    spiceUSBRedirection = {
+      enable = true;
+    };
   };
 
   users.users.rcyclegar = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "libvirtd" ];
     shell = pkgs.fish;
   };
+
+  users.groups.libvirtd.members = ["rcyclegar"];
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
