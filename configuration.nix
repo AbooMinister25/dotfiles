@@ -23,8 +23,8 @@
   services = {
     xserver.videoDrivers = ["nvidia"];
     greetd = {
-      enable = true;
-      settings = {
+     enable = true;
+     settings = {
         default_session = {
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --issue --user-menu --remember --cmd Hyprland --remember-user-session --asterisks";
           user = "greeter";
@@ -39,6 +39,16 @@
     };
     udev.packages = [ pkgs.via ];
     gnome.gnome-keyring.enable = true;
+    #desktopManager = {
+     # cosmic = {
+      #  enable = true;
+      #};
+    #};
+    #displayManager = {
+     # cosmic-greeter = {
+      #  enable = true;
+      #};
+    #};
   };
 
   programs = {
