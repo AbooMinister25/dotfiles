@@ -1,1 +1,0 @@
-/nix/store/jlynwvnj1fhw1nb66apa46fpisp65468-home-manager-files/.config/fish/conf.d/plugin-tide.fish
