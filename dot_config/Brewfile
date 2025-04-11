@@ -1,0 +1,16 @@
+brew git
+brew helix
+brew eza
+brew ripgrep
+brew bat
+brew procs
+brew dust
+brew tokei
+brew bottom
+brew git-delta
+brew jq
+brew fzf
+brew grex
+brew xh
+brew fastfetch
+
