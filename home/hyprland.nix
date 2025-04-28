@@ -65,7 +65,8 @@
       ];
 
       bindr = [
-        "SUPER, SUPER_L, exec, rofi -show drun -modi 'exp:~/.config/rofi/scripts/expand.sh' -kb-custom-1 'ctrl+x' -theme ~/.config/rofi/style-6.rasi"
+        "SUPER, SUPER_L, exec, anyrun"
+        # "SUPER, SUPER_L, exec, rofi -show drun -modi 'exp:~/.config/rofi/scripts/expand.sh' -kb-custom-1 'ctrl+x' -theme ~/.config/rofi/style-6.rasi"
       ];
 
       layerrule = [

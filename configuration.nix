@@ -23,8 +23,8 @@
   services = {
     xserver.videoDrivers = ["nvidia"];
     greetd = {
-     enable = true;
-     settings = {
+      enable = true;
+      settings = {
         default_session = {
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --issue --user-menu --remember --cmd Hyprland --remember-user-session --asterisks";
           user = "greeter";
@@ -77,14 +77,15 @@
       modesetting.enable = true;
       open = false;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "555.58.02";
-        sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-        sha256_aarch64 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-        openSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-        settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-        persistencedSha256 = lib.fakeSha256;
-      };
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "555.58.02";
+      #   sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+      #   sha256_aarch64 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+      #   openSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+      #   settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+      #   persistencedSha256 = lib.fakeSha256;
+      # };
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
     bluetooth = {
       enable = true;
@@ -110,8 +111,14 @@
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
-      substituters = ["https://hyprland.cachix.org" "https://cosmic.cachix.org/"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+      substituters = ["https://hyprland.cachix.org" "https://cosmic.cachix.org/" "https://anyrun.cachix.org" "https://walker.cachix.org" "https://walker-git.cachix.org"];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+        "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+        "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+      ];
     };
     gc = {
       automatic = true;

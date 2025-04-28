@@ -28,9 +28,18 @@
       url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+  
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    walker.url = "github:abenz1267/walker";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, split-monitor-workspaces, nixos-cosmic, ...}@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, split-monitor-workspaces, nixos-cosmic, hyprpanel, anyrun, walker, ...}@inputs: {
     nixosConfigurations.rayyanc-desktop = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
 
@@ -56,6 +65,13 @@
             inherit inputs;
             pkgs-unstable = import nixpkgs-unstable {
               inherit system;
+              config.allowUnfree = true;
+            };
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [
+                hyprpanel.overlay
+              ];
               config.allowUnfree = true;
             };
           };
