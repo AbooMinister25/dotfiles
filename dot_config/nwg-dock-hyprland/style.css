@@ -1,0 +1,41 @@
+window {
+    background-color: alpha(#232A2E, 0.75);
+    border: 0.5px solid alpha(#D3C6AA, 0.5);
+    border-radius: 5px;
+}
+
+#box {
+    /* Define attributes of the box surrounding icons here */
+    padding: 8px;
+}
+
+#active {
+    /* This is to underline the button representing the currently active window */
+    border-bottom: solid 0px;
+    border-color: #ffffff;
+}
+
+button,
+image {
+    background: none;
+    border-style: none;
+    box-shadow: none;
+}
+
+button {
+    padding: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #D3C6AA;
+    font-size: 12px; 
+}
+
+button:hover {
+    background-color: rgba(35, 42, 46, 0.15);
+    /* border-radius: 10px; */
+}
+
+button:focus {
+    box-shadow: none;
+}
+
