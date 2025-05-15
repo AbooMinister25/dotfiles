@@ -29,6 +29,10 @@
         "MOZ_ENABLE_WAYLAND, 0"
       ];
 
+      general = {
+        gaps_out = 12;
+      };
+
       "$mod" = "SUPER";
       bind = [
         "$mod, B, exec, firefox"
@@ -71,6 +75,7 @@
 
       layerrule = [
         "blur, rofi"
+        "blur, nwg-dock"
       ];
     };
 

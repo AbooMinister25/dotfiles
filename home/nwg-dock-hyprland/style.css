@@ -1,15 +1,12 @@
 window {
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    border-style: solid;
-    border-width: 3px;
-    border-color: #ffffff;
-    opacity: 0.8;
+    background-color: alpha(#232A2E, 0.75);
+    border: 0.5px solid alpha(#D3C6AA, 0.5);
+    border-radius: 5px;
 }
 
 #box {
     /* Define attributes of the box surrounding icons here */
-    padding: 10px;
+    padding: 8px;
 }
 
 #active {
@@ -23,20 +20,19 @@ image {
     background: none;
     border-style: none;
     box-shadow: none;
-    color: #999;
 }
 
 button {
     padding: 4px;
     margin-left: 4px;
     margin-right: 4px;
-    color: #eee;
-    font-size: 12px;
+    color: #D3C6AA;
+    font-size: 12px; 
 }
 
 button:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
+    background-color: rgba(35, 42, 46, 0.15);
+    /* border-radius: 10px; */
 }
 
 button:focus {

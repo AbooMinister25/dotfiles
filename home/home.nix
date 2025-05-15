@@ -48,16 +48,20 @@ in
   };
   gtk.theme.name = "adw-gtk3-dark";
   gtk.theme.package = pkgs.adw-gtk3;
+  gtk.iconTheme = {
+    name = "Papirus";
+    package = pkgs.papirus-icon-theme;
+  };
 
   qt = {
     enable = true;
     platformTheme.name = "gtk";
   };
 
-  # home.file.".config/nwg-dock-hyprland" = {
-  #   source = ./nwg-dock-hyprland;
-  #   recursive = true;
-  # };
+  home.file.".config/nwg-dock-hyprland" = {
+    source = ./nwg-dock-hyprland;
+    recursive = true;
+  };
 
   home.packages = with pkgs; [
     # Utilities
