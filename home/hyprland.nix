@@ -9,6 +9,7 @@
         "ags"
         "swaync"
         "systemctl --user start plasma-polkit-agent"
+        "nwg-dock-hyprland -i 32 -w 5 -ml 10 -mr 10 -mb 8 -x"
       ];
 
       monitor = [
