@@ -13,6 +13,7 @@
     ./vscode.nix
     ./git.nix
     ./ghostty.nix
+    ./gloview.nix
   ];
 
   home.username = "rayyanc";

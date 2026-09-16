@@ -85,7 +85,7 @@
           "hyprland"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-unstable"
         ],
         "systems": [
           "gloview",

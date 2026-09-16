@@ -37,8 +37,9 @@
 
     gloview = {
       url = "github:fedsfarm/gloview";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.hyprland.follows = "hyprland";
+      flake = false;
     };
 
     noctalia = {

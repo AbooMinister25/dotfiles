@@ -26,9 +26,6 @@ in
 
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
-      (inputs.gloview.packages.${pkgs.stdenv.hostPlatform.system}.gloview.override {
-        hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      })
     ];
   };
 
