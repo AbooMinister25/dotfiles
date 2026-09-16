@@ -118,6 +118,7 @@
   programs = {
     fish.enable = true;
     dconf.enable = true;
+    gamemode.enable = true;
     hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -138,6 +139,19 @@
       settings = {
         keyboard.layout = "us";
       };
+    };
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      gamescopeSession.enable = true;
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+      ];
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
     };
   };
 
@@ -210,6 +224,9 @@
     git
     vim
     wget
+
+    mangohud
+    protonup-qt
   ];
 
   users.users."rayyanc" = {

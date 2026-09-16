@@ -29,6 +29,7 @@
   home.sessionVariables = {
     TERM = "ghostty";
     BROWSER = "firefox";
+    PROTON_ENABLE_NVAPI = 1;
   };
 
   qt = {

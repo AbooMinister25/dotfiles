@@ -73,7 +73,7 @@ hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + X", hl.dsp.window.float({ action = "toggle" }))
-
+hl.bind(mainMod .. " ALT, TAB", hl.dsp.window.cycle_next())
 hl.bind(mainMod .. " + right", smw.cycle_workspaces("next"))
 hl.bind(mainMod .. " + left", smw.cycle_workspaces("prev"))
 
