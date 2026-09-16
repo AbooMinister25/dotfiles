@@ -56,9 +56,7 @@ hl.env("NVD_BACKEND", "direct")
 hl.env("MOZ_ENABLE_WAYLAND", 0)
 
 hl.on("hyprland.start", function()
-	--	hl.exec_cmd("noctalia")
 	hl.exec_cmd("hyprpolkitagent")
-	hl.exec_cmd("hypridle")
 	hl.exec_cmd("wl-paste --watch cliphist store")
 end)
 
@@ -70,6 +68,7 @@ smw.setup({
 local mainMod = "SUPER"
 local ipc = "noctalia msg "
 
+-- Desktop navigation
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
@@ -84,10 +83,10 @@ for i = 1, smw.get_amount_of_workspaces() do
 	hl.bind(mainMod .. " + SHIFT +" .. n, smw.move_to_workspace_silent(n))
 end
 
+-- Widgets/Panels
 hl.bind(mainMod .. "+ Space", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
-
--- -- Gloview bindings
-hl.bind(maianMod + " + up", hl.plugin.gloview.toggle)
+hl.bind(mainMod .. "+ SHIFT + C", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
+hl.bind(mainMod .. "+ SHIFT + S", hl.dsp.exec_cmd(ipc .. "screenshot-annotate"))
 
 hl.config({
 	plugin = {
@@ -134,4 +133,14 @@ hl.plugin.hyprbars.add_button({
 	size = 12,
 	icon = "+",
 	action = "hyprctl dispatch 'hl.dsp.window.fullscreen()'",
+})
+
+hl.layer_rule({
+	name = "noctalia",
+	match = {
+		namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+	},
+	no_anim = true,
+	blur = true,
+	blur_popups = true,
 })

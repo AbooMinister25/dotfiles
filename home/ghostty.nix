@@ -7,7 +7,7 @@
     enableFishIntegration = true;
     settings = {
       theme = "Gruvbox Material Dark";
-      font-size = 12;
+      font-size = 10;
       window-padding-x = 10;
     };
   };

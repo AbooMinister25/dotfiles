@@ -13,7 +13,6 @@
     ./vscode.nix
     ./git.nix
     ./ghostty.nix
-    ./gloview.nix
   ];
 
   home.username = "rayyanc";
@@ -60,6 +59,11 @@
 
     # Applications
     firefox
+    discord
+    bitwarden-desktop
+    obsidian
+    darktable
+    stremio-linux-shell
 
     # Tools
     neovim

@@ -20,26 +20,9 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     hyprpolkitagent = {
       url = "github:hyprwm/hyprpolkitagent";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    gloview = {
-      url = "github:fedsfarm/gloview";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.hyprland.follows = "hyprland";
-      flake = false;
     };
 
     noctalia = {
