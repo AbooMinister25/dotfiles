@@ -59,7 +59,7 @@ hl.env("NIXOS_OZONE_WL", 1)
 hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpolkitagent")
 	hl.exec_cmd("wl-paste --watch cliphist store")
-	hl.dsp.exec_cmd("snappy-switcher --daemon")
+	hl.exec_cmd("snappy-switcher --daemon")
 end)
 
 smw.setup({

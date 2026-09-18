@@ -13,6 +13,7 @@
     ./vscode.nix
     ./git.nix
     ./ghostty.nix
+    ./snappy-switcher.nix
   ];
 
   home.username = "rayyanc";
