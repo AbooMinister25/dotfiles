@@ -30,6 +30,7 @@
     TERM = "ghostty";
     BROWSER = "firefox";
     PROTON_ENABLE_NVAPI = 1;
+    NIXOS_OZONE_WL = "1";
   };
 
   qt = {
@@ -50,6 +51,7 @@
 
     # Desktop Utilities
     inputs.hyprpolkitagent.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.snappy-switcher.packages.${pkgs.system}.default
     grim
     slurp
     wl-clipboard

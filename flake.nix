@@ -34,6 +34,10 @@
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    snappy-switcher = {
+      url = "github:OpalAayan/snappy-switcher";
+    };
   };
 
   outputs =

@@ -54,10 +54,12 @@ hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("NVD_BACKEND", "direct")
 hl.env("MOZ_ENABLE_WAYLAND", 0)
+hl.env("NIXOS_OZONE_WL", 1)
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpolkitagent")
 	hl.exec_cmd("wl-paste --watch cliphist store")
+	hl.dsp.exec_cmd("snappy-switcher --daemon")
 end)
 
 smw.setup({
@@ -73,9 +75,12 @@ hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + X", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " ALT, TAB", hl.dsp.window.cycle_next())
 hl.bind(mainMod .. " + right", smw.cycle_workspaces("next"))
 hl.bind(mainMod .. " + left", smw.cycle_workspaces("prev"))
+
+-- hl.bind("ALT + Tab", hl.dsp.focus({ workspace = "previous" }))
+hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
+hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd("snappy-switcher prev --mod alt"))
 
 for i = 1, smw.get_amount_of_workspaces() do
 	local n = tostring(i)
@@ -135,6 +140,15 @@ hl.plugin.hyprbars.add_button({
 	action = "hyprctl dispatch 'hl.dsp.window.fullscreen()'",
 })
 
+hl.window_rule({
+	name = "noctalia-ctx-window",
+	match = {
+		class = "^$",
+		float = true,
+	},
+	no_blur = true,
+})
+
 hl.layer_rule({
 	name = "noctalia",
 	match = {
@@ -142,5 +156,13 @@ hl.layer_rule({
 	},
 	no_anim = true,
 	blur = true,
-	blur_popups = true,
+	blur_popups = false,
 })
+
+hl.layer_rule(
+	{
+		match = { namespace = "snappy-switcher" },
+		blur = true,
+		ignore_alpha = 0.01
+	}
+)
