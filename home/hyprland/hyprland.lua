@@ -1,6 +1,26 @@
--- local smw = require("split-monitor-workspaces")
-
 local terminal = "ghostty"
+
+-- smw setup
+
+smw.setup({
+	workspace_count = 7,
+	monitor_priority = { "DP-3", "HDMI-A-1" },
+	enable_wrapping = false
+});
+
+-- Environment Variables
+
+hl.env("HYPRCURSOR_THEME", "oblique-cursor")
+hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_THEME", "oblique-cursor")
+hl.env("TERM", terminal)
+hl.env("LIBVA_DRIVER_NAME", "nvidia")
+hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+hl.env("NVD_BACKEND", "direct")
+hl.env("MOZ_ENABLE_WAYLAND", 0)
+hl.env("NIXOS_OZONE_WL", 1)
+
+-- Monitor Configuration
 
 hl.monitor({
 	output = "DP-3",
@@ -16,11 +36,67 @@ hl.monitor({
 	transform = 1,
 })
 
+-- Workspace Rules
+
 hl.workspace_rule({
 	workspace = "1",
 	monitor = "DP-3",
 	default = true
 })
+
+-- Window Rules
+
+hl.window_rule({
+	name = "noctalia-ctx-window",
+	match = {
+		class = "^$",
+		float = true,
+	},
+	no_blur = true,
+})
+
+-- Layer Rules
+
+hl.layer_rule({
+	name = "noctalia",
+	match = {
+		namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+	},
+	no_anim = true,
+	blur = true,
+	blur_popups = false,
+})
+
+hl.layer_rule(
+	{
+		match = { namespace = "snappy-switcher" },
+		blur = true,
+		ignore_alpha = 0.01
+	}
+)
+
+-- Hyprland Events
+
+hl.on("window.fullscreen", function(window)
+	if not window.fullscreen then
+		return
+	end
+
+	local workspace = window.workspace
+	if not workspace then
+		return
+	end
+
+	if workspace.windows > 1 then
+		hl.dispatch(hl.dsp.focus({
+			window = window,
+		}))
+
+		hl.dispatch(smw.move_to_workspace("empty"))
+	end
+end)
+
+-- General Hyprland Configuration
 
 hl.config({
 	general = {
@@ -43,29 +119,10 @@ hl.config({
 			render_power = 3,
 			color = 0xee1a1a1a,
 		},
-	}
+	},
 })
 
-hl.env("HYPRCURSOR_THEME", "oblique-cursor")
-hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("XCURSOR_THEME", "oblique-cursor")
-hl.env("TERM", terminal)
-hl.env("LIBVA_DRIVER_NAME", "nvidia")
-hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
-hl.env("NVD_BACKEND", "direct")
-hl.env("MOZ_ENABLE_WAYLAND", 0)
-hl.env("NIXOS_OZONE_WL", 1)
-
-hl.on("hyprland.start", function()
-	hl.exec_cmd("hyprpolkitagent")
-	hl.exec_cmd("wl-paste --watch cliphist store")
-	hl.exec_cmd("snappy-switcher --daemon")
-end)
-
-smw.setup({
-	workspace_count = 7,
-	monitor_priority = { "DP-3", "HDMI-A-1" }
-});
+-- Keybinds / Shortcuts
 
 local mainMod = "SUPER"
 local ipc = "noctalia msg "
@@ -92,6 +149,45 @@ end
 hl.bind(mainMod .. "+ Space", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
 hl.bind(mainMod .. "+ SHIFT + C", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
 hl.bind(mainMod .. "+ SHIFT + S", hl.dsp.exec_cmd(ipc .. "screenshot-annotate"))
+
+-- Media controls
+hl.bind(
+	"XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd(ipc .. "volume-up"),
+	{ locked = true, repeating = true }
+)
+
+hl.bind(
+	"XF86AudioLowerVolume",
+	hl.dsp.exec_cmd(ipc .. "volume-down"),
+	{ locked = true, repeating = true }
+)
+
+hl.bind(
+	"XF86AudioMute",
+	hl.dsp.exec_cmd(ipc .. "volume-mute"),
+	{ locked = true }
+)
+
+hl.bind(
+	"XF86AudioPlay",
+	hl.dsp.exec_cmd(ipc .. "media toggle"),
+	{ locked = true }
+)
+
+hl.bind(
+	"XF86AudioNext",
+	hl.dsp.exec_cmd(ipc .. "media next"),
+	{ locked = true }
+)
+
+hl.bind(
+	"XF86AudioPrev",
+	hl.dsp.exec_cmd(ipc .. "media prev"),
+	{ locked = true }
+)
+
+-- Hyprbars
 
 hl.config({
 	plugin = {
@@ -140,29 +236,10 @@ hl.plugin.hyprbars.add_button({
 	action = "hyprctl dispatch 'hl.dsp.window.fullscreen()'",
 })
 
-hl.window_rule({
-	name = "noctalia-ctx-window",
-	match = {
-		class = "^$",
-		float = true,
-	},
-	no_blur = true,
-})
+-- Autostart
 
-hl.layer_rule({
-	name = "noctalia",
-	match = {
-		namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
-	},
-	no_anim = true,
-	blur = true,
-	blur_popups = false,
-})
-
-hl.layer_rule(
-	{
-		match = { namespace = "snappy-switcher" },
-		blur = true,
-		ignore_alpha = 0.01
-	}
-)
+hl.on("hyprland.start", function()
+	hl.exec_cmd("hyprpolkitagent")
+	hl.exec_cmd("wl-paste --watch cliphist store")
+	hl.exec_cmd("snappy-switcher --daemon")
+end)

@@ -61,7 +61,10 @@
       pkgs = import nixpkgs { inherit system; };
     in
     {
-      packages.${system}.oblique-cursors = import ./packages/oblique-cursors.nix { inherit pkgs; };
+      packages.${system} = {
+        nuvio-desktop = import ./packages/nuvio-desktop.nix { inherit pkgs; };
+        oblique-cursors = import ./packages/oblique-cursors.nix { inherit pkgs; };
+      };
 
       nixosConfigurations.rayyanc-desktop = nixpkgs.lib.nixosSystem {
         inherit system;

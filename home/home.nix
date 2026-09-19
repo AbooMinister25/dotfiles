@@ -68,6 +68,7 @@
     obsidian
     darktable
     stremio-linux-shell
+    inputs.self.packages.${pkgs.system}.nuvio-desktop
 
     # Tools
     neovim
