@@ -19,6 +19,7 @@ hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("NVD_BACKEND", "direct")
 hl.env("MOZ_ENABLE_WAYLAND", 0)
 hl.env("NIXOS_OZONE_WL", 1)
+hl.env("JAVA_OPTIONS", "-Dsun.java2d.uiScale=1")
 
 -- Monitor Configuration
 
@@ -53,6 +54,16 @@ hl.window_rule({
 		float = true,
 	},
 	no_blur = true,
+})
+
+hl.window_rule({
+	name = "nuvio-desktop-window",
+	match = {
+		class = "com-nuvio-app-MainKt",
+	},
+	float = true,
+	size = { 1280, 720 },
+	center = true
 })
 
 -- Layer Rules
@@ -119,6 +130,10 @@ hl.config({
 			render_power = 3,
 			color = 0xee1a1a1a,
 		},
+	},
+
+	xwayland = {
+		force_zero_scaling = true,
 	},
 })
 

@@ -16,6 +16,34 @@ in
 pkgs.appimageTools.wrapType2 {
   inherit pname version src;
 
+  extraPkgs =
+    pkgs: with pkgs; [
+      alsa-lib
+      brotli
+      bzip2
+      expat
+      fontconfig
+      freetype
+      stdenv.cc.cc.lib
+      glib-networking
+      glibc
+      gst_all_1.gst-libav
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-base
+      libbsd
+      libglvnd
+      libpng
+      xorg.libX11
+      xorg.libXcomposite
+      xorg.libXext
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXtst
+      mpv
+      webkitgtk_4_1
+      xdg-utils
+    ];
+
   extraInstallCommands = ''
     install -Dm644 \
       ${appimageContents}/Nuvio.desktop \
