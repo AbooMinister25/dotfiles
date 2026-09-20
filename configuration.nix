@@ -225,7 +225,7 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      # cudaSupport = true;
+      cudaSupport = true;
     };
   };
 
