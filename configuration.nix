@@ -145,6 +145,7 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       gamescopeSession.enable = true;
+      protontricks.enable = true;
       extraCompatPackages = [
         pkgs.proton-ge-bin
         pkgs.proton-cachyos
@@ -196,9 +197,15 @@
         "nix-command"
         "flakes"
       ];
-      substituters = [ "https://hyprland.cachix.org" ];
+      substituters = [
+        "https://hyprland.cachix.org"
+        "https://cache.nixos-cuda.org"
+      ];
       trusted-substituters = [ "https://hyprland.cachix.org" ];
-      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      ];
       trusted-users = [
         "root"
         "@wheel"
@@ -218,6 +225,7 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
+      # cudaSupport = true;
     };
   };
 
