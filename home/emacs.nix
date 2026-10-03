@@ -7,5 +7,5 @@
 	};
 
 	xdg.configFile."emacs".source =
-		config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory + "/nixos-config/emacs";
+		config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory + "/nixos-config/home/emacs";
 }
