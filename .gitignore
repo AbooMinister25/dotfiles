@@ -1,0 +1,7 @@
+*.elc
+auto-save-list
+elpa/
+.cask/
+dist/
+.projectile
+var/
