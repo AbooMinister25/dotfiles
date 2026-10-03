@@ -99,6 +99,7 @@
     accounts-daemon.enable = true;
     fstrim.enable = true;
     printing.enable = true;
+    cloudflare-warp.enable = true;
     xserver = {
       videoDrivers = [ "nvidia" ];
       xkb = {

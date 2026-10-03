@@ -49,6 +49,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       chaotic,
       hyprland,
       home-manager,
@@ -59,6 +60,10 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+      pkgs-unstable = import nixpkgs-unstable { 
+      	inherit system; 
+	config.allowUnfree = true;
+      };
     in
     {
       packages.${system} = {
@@ -86,7 +91,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = { 
+	    	inherit inputs;
+		inherit pkgs-unstable;
+	    };
 
             home-manager.users.rayyanc = import ./home/home.nix;
           }
