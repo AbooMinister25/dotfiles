@@ -16,6 +16,7 @@
     ./ghostty.nix
     ./snappy-switcher.nix
     ./emacs.nix
+    ./ssh.nix
   ];
 
   home.username = "rayyanc";
@@ -34,6 +35,7 @@
     BROWSER = "firefox";
     PROTON_ENABLE_NVAPI = 1;
     NIXOS_OZONE_WL = "1";
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
   };
 
   qt = {
