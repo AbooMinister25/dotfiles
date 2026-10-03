@@ -9,7 +9,7 @@
 			"github.com" = {
 				identityFile = "~/.ssh/id_ed25525";
 				extraOptions = {
-					StrictHostChecking = "accept-new";
+					StrictHostKeyChecking = "accept-new";
 				};
 			};
 		};
