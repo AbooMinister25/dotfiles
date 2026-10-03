@@ -5,3 +5,4 @@ elpa/
 dist/
 .projectile
 var/
+eln-cache/
