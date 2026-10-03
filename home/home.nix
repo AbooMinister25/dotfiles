@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 
@@ -14,6 +15,7 @@
     ./git.nix
     ./ghostty.nix
     ./snappy-switcher.nix
+    ./emacs.nix
   ];
 
   home.username = "rayyanc";
@@ -69,6 +71,8 @@
     darktable
     stremio-linux-shell
     prismlauncher
+    cloudflare-warp
+    pkgs-unstable.protonplus
     inputs.self.packages.${pkgs.system}.nuvio-desktop
 
     # Tools
@@ -88,6 +92,7 @@
     xh
     fastfetch
     nixfmt
+    koboldcpp
   ];
 
   home.stateVersion = "26.11";
