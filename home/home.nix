@@ -17,6 +17,7 @@
     ./snappy-switcher.nix
     ./emacs.nix
     ./ssh.nix
+    ./mangohud.nix
   ];
 
   home.username = "rayyanc";

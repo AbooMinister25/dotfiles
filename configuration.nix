@@ -235,7 +235,6 @@
     vim
     wget
 
-    mangohud
     protonup-qt
   ];
 

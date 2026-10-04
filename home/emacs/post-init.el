@@ -5,14 +5,17 @@
   :init
   (pixel-scroll-precision-mode t)
   (set-face-attribute 'default nil
-                      :font "FiraCode Nerd Font"
-                      :height 120)
+                      :font (font-spec 
+			                 :family "FiraCode Nerd Font" 
+			                 :size 10.0))
   (set-face-attribute 'fixed-pitch nil
-                      :font "FiraCode Nerd Font"
-                      :height 120)
+                      :font (font-spec
+                             :family "FiraCode Nerd Font"
+                             :size 10.0))
   (set-face-attribute 'variable-pitch nil
-                      :font "FiraCode Nerd Font"
-                      :height 120)
+                      :font (font-spec
+                             :family "FiraCode Nerd Font"
+                             :size 10.0))
 
   :hook (prog-mode . display-line-numbers-mode)
 
@@ -386,3 +389,25 @@
   :config
   (progn
     (setq treemacs-collapse-dirs 3)))
+
+(use-package treemacs-nerd-icons
+  :ensure t
+  :config
+  (treemacs-nerd-icons-config))
+
+;; code folding
+(use-package kirigami
+  :commands (kirigami-open-fold
+             kirigami-open-fold-rec
+             kirigami-close-fold
+             kirigami-toggle-fold
+             kirigami-open-folds
+             kirigami-close-folds-except-current
+             kirigami-close-folds)
+  :bind
+  (("C-c z o" . kirigami-open-fold)          ; Open fold at point
+   ("C-c z O" . kirigami-open-fold-rec)      ; Open fold recursively
+   ("C-c z r" . kirigami-open-folds)         ; Open all folds
+   ("C-c z c" . kirigami-close-fold)         ; Close fold at point
+   ("C-c z m" . kirigami-close-folds)        ; Close all folds
+   ("C-c z a" . kirigami-toggle-fold)))      ; Toggle fold at point      
