@@ -28,6 +28,9 @@
       "pci=realloc"
       "nvidia-drm.modeset=1"
     ];
+    initrd = {
+	kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+    };
     blacklistedKernelModules = [ "nouveau" ];
   };
 
