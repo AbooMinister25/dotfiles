@@ -96,6 +96,8 @@
     fastfetch
     nixfmt
     koboldcpp
+    pkgs-unstable.codex
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2
   ];
 
   home.stateVersion = "26.11";

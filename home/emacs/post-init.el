@@ -192,7 +192,7 @@
          ("C-x p b" . consult-project-buffer) ;; buffer switcher, limited to current project.
          ;; M-g commands
          ("M-g e" . consult-compile-error) ;; jump to compilation error.
-         ("M-g f" . consult-flycheck) ;; jump to flymake diagnostic.
+         ("M-g f" . consult-flymake) ;; jump to flymake diagnostic.
          ("M-g i" . consult-imenu) ;; jump to function/class/heading.
          ;; M-s commands
          ("M-s l" . consult-line) ;; search lines in current buffer.
@@ -318,17 +318,17 @@
 (use-package ligature
   :config
   (ligature-set-ligatures 't '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-                                "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-                                "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-                                "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-                                ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
-                                "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
-                                "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
-                                "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
-                                ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
-                                "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
-                                "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
-                                "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+                               "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+                               "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+                               "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+                               ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+                               "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+                               "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+                               "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+                               ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+                               "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+                               "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+                               "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
 
   (global-ligature-mode t))
 
@@ -361,6 +361,48 @@
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
+
+;; Language Server Protocol. Eglot is built into Emacs 29+; the language
+;; servers themselves must be installed separately and available on PATH.
+(use-package eglot
+  :ensure nil
+  :commands (eglot eglot-ensure eglot-format-buffer eglot-rename
+                   eglot-code-actions eglot-code-actions-organize-imports)
+  :hook ((rust-mode . eglot-ensure)
+         (rust-ts-mode . eglot-ensure)
+         (python-mode . eglot-ensure)
+         (python-ts-mode . eglot-ensure)
+         (c-mode . eglot-ensure)
+         (c-ts-mode . eglot-ensure)
+         (c++-mode . eglot-ensure)
+         (c++-ts-mode . eglot-ensure)
+         (js-mode . eglot-ensure)
+         (js-ts-mode . eglot-ensure)
+         (typescript-mode . eglot-ensure)
+         (typescript-ts-mode . eglot-ensure)
+         (nix-mode . eglot-ensure)
+         (nix-ts-mode . eglot-ensure))
+  :bind (("C-c l r" . eglot-rename)
+         ("C-c l a" . eglot-code-actions)
+         ("C-c l o" . eglot-code-actions-organize-imports)
+         ("C-c l f" . eglot-format-buffer))
+  :config
+  ;; Configure servers for modes which may not have a default Eglot mapping.
+  (add-to-list 'eglot-server-programs
+               '((rust-ts-mode rust-mode) . ("rust-analyzer")))
+  (add-to-list 'eglot-server-programs
+               '((nix-mode nix-ts-mode) . ("nil"))))
+
+;; These modes cover files when the corresponding built-in tree-sitter mode is
+;; unavailable or not selected by treesit-auto.
+(use-package rust-mode
+  :mode "\\.rs\\'")
+
+(use-package typescript-mode
+  :mode "\\.tsx?\\'")
+
+(use-package nix-mode
+  :mode "\\.nix\\'")
 
 ;; centaur-tabs (prettier tabs)
 (use-package centaur-tabs
@@ -411,3 +453,16 @@
    ("C-c z c" . kirigami-close-fold)         ; Close fold at point
    ("C-c z m" . kirigami-close-folds)        ; Close all folds
    ("C-c z a" . kirigami-toggle-fold)))      ; Toggle fold at point      
+
+;; which-key
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode 1))
+
+;; apheleia
+(use-package apheleia
+  :ensure t
+  :commands (apheleia-mode
+             apheleia-global-mode)
+  :hook ((prog-mode . apheleia-mode)))

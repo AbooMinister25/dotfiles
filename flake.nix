@@ -43,6 +43,10 @@
     snappy-switcher = {
       url = "github:OpalAayan/snappy-switcher";
     };
+
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+    };
   };
 
   outputs =
