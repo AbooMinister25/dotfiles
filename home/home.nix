@@ -76,6 +76,7 @@
     prismlauncher
     cloudflare-warp
     pkgs-unstable.protonplus
+    pkgs-unstable.super-productivity
     inputs.self.packages.${pkgs.system}.nuvio-desktop
 
     # Tools
