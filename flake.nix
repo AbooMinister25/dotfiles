@@ -64,9 +64,9 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      pkgs-unstable = import nixpkgs-unstable { 
-      	inherit system; 
-	config.allowUnfree = true;
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
       };
     in
     {
@@ -78,7 +78,7 @@
       nixosConfigurations.rayyanc-desktop = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs pkgs-unstable; };
 
         modules = [
           ./configuration.nix
@@ -95,10 +95,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { 
-	    	inherit inputs;
-		inherit pkgs-unstable;
-	    };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              inherit pkgs-unstable;
+            };
 
             home-manager.users.rayyanc = import ./home/home.nix;
           }

@@ -6,6 +6,7 @@
   inputs,
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }:
@@ -29,7 +30,12 @@
       "nvidia-drm.modeset=1"
     ];
     initrd = {
-	kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+      kernelModules = [
+        "nvidia"
+        "nvidia_modeset"
+        "nvidia_uvm"
+        "nvidia_drm"
+      ];
     };
     blacklistedKernelModules = [ "nouveau" ];
   };
@@ -154,10 +160,26 @@
         pkgs.proton-ge-bin
         pkgs.proton-cachyos
       ];
+      package = pkgs.steam.override {
+        extraPkgs =
+          pkgs: with pkgs; [
+            xorg.libXcursor
+            xorg.libXi
+            xorg.libXinerama
+            xorg.libXScrnSaver
+            libpng
+            libpulseaudio
+            libvorbis
+            stdenv.cc.cc.lib
+            libkrb5
+            keyutils
+          ];
+      };
     };
     gamescope = {
       enable = true;
       capSysNice = true;
+      package = pkgs-unstable.gamescope;
     };
   };
 
