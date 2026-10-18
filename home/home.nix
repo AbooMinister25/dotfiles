@@ -1,5 +1,6 @@
 {
   inputs,
+  hyprlandPkg,
   config,
   pkgs,
   pkgs-unstable,
@@ -9,7 +10,7 @@
 {
   imports = [
     (import ./noctalia.nix { inherit inputs; })
-    (import ./hyprland.nix { inherit inputs; })
+    (import ./hyprland.nix { inherit inputs hyprlandPkg; })
     ./fish.nix
     ./vscode.nix
     ./git.nix

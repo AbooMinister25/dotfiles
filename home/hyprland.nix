@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, hyprlandPkg, ... }:
 { config, pkgs, ... }:
 
 let
@@ -8,6 +8,13 @@ let
     rev = "v0.56.0";
     hash = "sha256-XVm8Bi8XasjMP2VOisrPAuJvrB6+rQZW+/TL9kr2Ogs=";
   };
+  hyprbarsPkg =
+    inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars.overrideAttrs
+      (old: {
+        buildInputs = map (
+          input: if (input.pname or null) == "hyprland" then hyprlandPkg.dev else input
+        ) old.buildInputs;
+      });
 in
 {
   wayland.windowManager.hyprland = {
@@ -25,7 +32,8 @@ in
       		'';
 
     plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
+      hyprbarsPkg
+      inputs.gloview.packages.${pkgs.system}.gloview
     ];
   };
 

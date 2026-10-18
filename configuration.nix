@@ -4,6 +4,7 @@
 
 {
   inputs,
+  hyprlandPkg,
   config,
   pkgs,
   pkgs-unstable,
@@ -133,7 +134,7 @@
       enable = true;
       xwayland.enable = true;
       withUWSM = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      package = hyprlandPkg;
       portalPackage =
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
@@ -173,6 +174,7 @@
             stdenv.cc.cc.lib
             libkrb5
             keyutils
+            pkgs-unstable.gamescope
           ];
       };
     };
@@ -187,7 +189,7 @@
     portal = {
       enable = true;
       extraPortals = [
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+        config.programs.hyprland.portalPackage
         pkgs.xdg-desktop-portal-gtk
       ];
       config.common.default = [

@@ -165,6 +165,11 @@ hl.bind(mainMod .. "+ Space", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
 hl.bind(mainMod .. "+ SHIFT + C", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
 hl.bind(mainMod .. "+ SHIFT + S", hl.dsp.exec_cmd(ipc .. "screenshot-annotate"))
 
+-- Gloview
+hl.bind(mainMod .. "+ up", hl.plugin.gloview.toggle)
+hl.bind(mainMod .. "+ SHIFT + up", hl.plugin.gloview.desktop)
+hl.bind(mainMod .. "+ CTRL + up", hl.plugin.gloview.allworkspaces)
+
 -- Media controls
 hl.bind(
 	"XF86AudioRaiseVolume",

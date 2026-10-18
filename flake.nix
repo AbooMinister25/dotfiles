@@ -16,18 +16,16 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:hyprwm/Hyprland/v0.56.2";
     };
 
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
+      url = "github:hyprwm/hyprland-plugins/v0.56.0";
       inputs.hyprland.follows = "hyprland";
     };
 
     hyprpolkitagent = {
       url = "github:hyprwm/hyprpolkitagent";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     noctalia = {
@@ -46,6 +44,11 @@
 
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
+    };
+
+    gloview = {
+      url = "github:fedsfarm/gloview";
+      inputs.hyprland.follows = "hyprland";
     };
   };
 
@@ -68,6 +71,12 @@
         inherit system;
         config.allowUnfree = true;
       };
+      hyprlandPkg = hyprland.packages.${system}.hyprland.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace CMakeLists.txt \
+            --replace-fail "glaze 7...<8" "glaze"
+        '';
+      });
     in
     {
       packages.${system} = {
@@ -78,7 +87,9 @@
       nixosConfigurations.rayyanc-desktop = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        specialArgs = { inherit inputs pkgs-unstable; };
+        specialArgs = {
+          inherit inputs pkgs-unstable hyprlandPkg;
+        };
 
         modules = [
           ./configuration.nix
@@ -96,8 +107,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
-              inherit inputs;
-              inherit pkgs-unstable;
+              inherit inputs pkgs-unstable hyprlandPkg;
             };
 
             home-manager.users.rayyanc = import ./home/home.nix;
