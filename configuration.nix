@@ -18,6 +18,8 @@
     ./hardware-configuration.nix
   ];
 
+  services.flatpak.enable = true;
+
   boot = {
     kernelPackages = pkgs.linuxPackages;
     plymouth.enable = true;
@@ -75,14 +77,14 @@
       open = true;
       nvidiaSettings = true;
       powerManagement.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      #    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #      version = "615.71.09";
-      #      sha256_64bit = lib.fakeHash;
-      #      openSha256 = lib.fakeHash;
-      #      settingsSha256 = lib.fakeHash;
-      #      persistencedSha256 = lib.fakeHash;
-      #    };
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "615.78.08";
+        sha256_64bit = "sha256-Pj9t3cLudnoIGFMAr3vjyyhuznZpjS3eNSRZl4LQf/4=";
+        openSha256 = "sha256-HBINiOjL0ZJLIAJeNIBYHBnwgUXtNwPPtnFpAI1YwF4=";
+        settingsSha256 = "sha256-inDRpG02sdDgHmlqgu/DsgK8OFdOt1fZIYyXdhlGC/c=";
+        persistencedSha256 = "sha256-Pj9t3cLudnoIGFMAr3vjyyhuznZpjS3eNSRZl4LQf/4=";
+      };
     };
     bluetooth = {
       enable = true;

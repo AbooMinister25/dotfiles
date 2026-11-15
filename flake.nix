@@ -10,6 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.8.0";
+
     chaotic = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -60,6 +62,7 @@
       chaotic,
       hyprland,
       home-manager,
+      nix-flatpak,
       noctalia,
       noctalia-greeter,
       ...
@@ -101,14 +104,18 @@
           noctalia-greeter.nixosModules.default
 
           noctalia.nixosModules.default
+          nix-flatpak.nixosModules.nix-flatpak
 
           home-manager.nixosModules.home-manager
           {
+            services.flatpak.enable = true;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
               inherit inputs pkgs-unstable hyprlandPkg;
             };
+
+            home-manager.sharedModules = [ nix-flatpak.homeManagerModules.nix-flatpak ];
 
             home-manager.users.rayyanc = import ./home/home.nix;
           }
