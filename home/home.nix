@@ -19,6 +19,7 @@
     ./emacs.nix
     ./ssh.nix
     ./mangohud.nix
+    ./direnv.nix
   ];
 
   home.username = "rayyanc";
@@ -79,6 +80,7 @@
     pkgs-unstable.protonplus
     pkgs-unstable.super-productivity
     inputs.self.packages.${pkgs.system}.nuvio-desktop
+    cemu
 
     # Tools
     neovim
@@ -101,6 +103,20 @@
     pkgs-unstable.codex
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2
   ];
+
+  services.flatpak = {
+    enable = true;
+    packages = [
+      {
+        appId = "io.github.xpl0itu.wiiudownloader";
+        sha256 = "0m6gm0dsqp0n8f7i9g1gsihy6wb7bzd6gprw99djp2bhaa97pqx4";
+        bundle = "${pkgs.fetchurl {
+          url = "https://github.com/Xpl0itU/WiiUDownloader/releases/download/v3.2/WiiUDownloader-Linux-x86_64.flatpak";
+          sha256 = "0m6gm0dsqp0n8f7i9g1gsihy6wb7bzd6gprw99djp2bhaa97pqx4";
+        }}";
+      }
+    ];
+  };
 
   home.stateVersion = "26.11";
 
