@@ -19,7 +19,7 @@
   ];
 
   services.flatpak.enable = true;
-
+  
   boot = {
     kernelPackages = pkgs.linuxPackages;
     plymouth.enable = true;
@@ -46,6 +46,12 @@
   networking = {
     hostName = "rayyanc-desktop";
     networkmanager.enable = true;
+  };
+  
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
   };
 
   zramSwap.enable = true;

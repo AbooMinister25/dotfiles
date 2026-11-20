@@ -17,7 +17,9 @@
                              :family "FiraCode Nerd Font"
                              :size 10.0))
 
-  :hook (prog-mode . display-line-numbers-mode)
+  :hook ((prog-mode . display-line-numbers-mode)
+         (text-mode . display-line-numbers-mode)
+         (conf-mode . display-line-numbers-mode))
 
   :custom
   (undo-limit 67108864)
@@ -81,6 +83,13 @@
     (add-to-list 'exec-path-from-shell-variables var))
   ;; Initialize
   (exec-path-from-shell-initialize))
+
+;; Load each buffer's direnv environment before language-server hooks run.
+;; Only .envrc files explicitly approved with `direnv allow' are loaded.
+(use-package envrc
+  :demand t
+  :config
+  (envrc-global-mode 1))
 
 ;; Auto-revert in Emacs is a feature that automatically updates the
 ;; contents of a buffer to reflect changes made to the underlying file
@@ -210,7 +219,28 @@
 
   :init
   (setq register-preview-delay 0.5
-        register-preview-function #'consult-register-window))
+        register-preview-function #'consult-register-format)
+  (advice-add #'register-preview :override #'consult-register-window))
+
+;; Built-in project management. Git repositories are detected automatically;
+;; an empty .project file also marks a directory as a project root.
+(use-package project
+  :straight nil
+  :ensure nil
+  :commands (project-switch-project project-find-file project-compile
+             project-dired project-eshell project-remember-projects-under
+             project-forget-project)
+  :custom
+  (project-vc-extra-root-markers '(".project"))
+  ;; Keep project history with the other runtime files under var/.
+  (project-list-file (expand-file-name "projects" user-emacs-directory))
+  (project-switch-commands
+   '((project-find-file "Find file" ?f)
+     (consult-ripgrep "Search project" ?s)
+     (consult-project-buffer "Switch buffer" ?b)
+     (project-dired "Open root directory" ?d)
+     (project-eshell "Open Eshell" ?e)
+     (project-compile "Compile / test" ?c))))
 
 ;; in-buffer completion
 
@@ -301,6 +331,83 @@
   :after evil
   :hook (after-init . global-evil-surround-mode))
 
+;; Doom-style leader keys (SPC in Evil's normal, visual, and motion states).
+(use-package general
+  :after evil
+  :demand t
+  :config
+  (general-create-definer my/leader
+    :states '(normal visual motion)
+    :keymaps 'override
+    :prefix "SPC")
+
+  (my/leader
+    "SPC" '(execute-extended-command :which-key "M-x")
+    "."   '(find-file :which-key "find file")
+    ","   '(consult-buffer :which-key "switch buffer")
+
+    "f"   '(:ignore t :which-key "files")
+    "ff"  '(find-file :which-key "find file")
+    "fs"  '(save-buffer :which-key "save file")
+    "fr"  '(consult-recent-file :which-key "recent files")
+
+    "b"   '(:ignore t :which-key "buffers")
+    "bb"  '(consult-buffer :which-key "switch buffer")
+    "bd"  '(kill-current-buffer :which-key "kill buffer")
+    "bn"  '(next-buffer :which-key "next buffer")
+    "bp"  '(previous-buffer :which-key "previous buffer")
+
+    "p"   '(:ignore t :which-key "projects")
+    "pp"  '(project-switch-project :which-key "switch project")
+    "pf"  '(project-find-file :which-key "find project file")
+    "pb"  '(consult-project-buffer :which-key "project buffers")
+    "pc"  '(project-compile :which-key "compile")
+    "ps"  '(consult-ripgrep :which-key "search project")
+    "pd"  '(project-dired :which-key "project directory")
+    "pe"  '(project-eshell :which-key "project shell")
+    "pa"  '(project-remember-projects-under :which-key "discover projects")
+    "pF"  '(project-forget-project :which-key "forget project")
+
+    "s"   '(:ignore t :which-key "search")
+    "sp"  '(consult-ripgrep :which-key "search project")
+    "ss"  '(consult-line :which-key "search buffer")
+    "si"  '(consult-imenu :which-key "buffer symbols")
+
+    "c"   '(:ignore t :which-key "code")
+    "cd"  '(xref-find-definitions :which-key "definition")
+    "cR"  '(xref-find-references :which-key "references")
+    "cr"  '(eglot-rename :which-key "rename")
+    "ca"  '(eglot-code-actions :which-key "code actions")
+    "cf"  '(eglot-format-buffer :which-key "format buffer")
+    "cx"  '(consult-flymake :which-key "diagnostics")
+
+    "w"   '(:keymap evil-window-map :which-key "windows")
+
+    "t"   '(:ignore t :which-key "toggle")
+    "tt"  '(treemacs :which-key "file tree")
+
+    "q"   '(:ignore t :which-key "sessions")
+    "ql"  '(easysession-switch-to :which-key "switch session")
+    "qs"  '(easysession-save :which-key "save session as")
+    "qr"  '(easysession-rename :which-key "rename session")
+    "qd"  '(easysession-delete :which-key "delete session")
+
+    "g"   '(:ignore t :which-key "git")
+    "gg" '(magit-status :which-key "status")
+    "g/" '(magit-dispatch :which-key "Git commands")
+    
+    "h"   '(:keymap help-map :which-key "help")
+    "m"   '(:ignore t :which-key "local leader"))
+
+  (general-create-definer my/local-leader
+    :states '(normal visual motion)
+    :prefix "SPC m")
+
+  (my/local-leader
+    :keymaps 'emacs-lisp-mode-map
+    "e" '(eval-defun :which-key "evaluate definition")
+    "b" '(eval-buffer :which-key "evaluate buffer")))
+
 ;; matching pairs/delimiter handling
 (use-package elec-pair
   :ensure nil
@@ -387,7 +494,12 @@
          ("C-c l o" . eglot-code-actions-organize-imports)
          ("C-c l f" . eglot-format-buffer))
   :config
-  ;; Configure servers for modes which may not have a default Eglot mapping.
+  ;; Explicit server choices take precedence over Eglot's default mappings.
+  (add-to-list 'eglot-server-programs
+               '((python-mode python-ts-mode)
+                 . ("basedpyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '((c-mode c-ts-mode c++-mode c++-ts-mode) . ("clangd")))
   (add-to-list 'eglot-server-programs
                '((rust-ts-mode rust-mode) . ("rust-analyzer")))
   (add-to-list 'eglot-server-programs
@@ -460,9 +572,25 @@
   :config
   (which-key-mode 1))
 
-;; apheleia
+;; Apheleia is available on demand; formatting on save is not enabled.
 (use-package apheleia
   :ensure t
   :commands (apheleia-mode
-             apheleia-global-mode)
-  :hook ((prog-mode . apheleia-mode)))
+              apheleia-global-mode))
+
+;; Restore sessions on startup and save periodically and on exit.
+(use-package easysession
+  :demand t
+  :custom
+  (easysession-save-interval 60)
+  (easysession-switch-to-save-session t)
+  (easysession-setup-load-session t)
+  :config
+  ;; Resume the last named session rather than always loading the default.
+  (add-to-list 'savehist-additional-variables
+               'easysession--current-session-name)
+  (easysession-setup))
+
+;; git handling
+(use-package magit
+  :commands (magit-status magit-dispatch))
