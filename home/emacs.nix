@@ -4,6 +4,9 @@
 	programs.emacs = {
 		enable = true;
 		package = pkgs-unstable.emacs-pgtk;
+		extraPackages = epkgs: [
+			epkgs.treesit-grammars.with-all-grammars
+		];
 	};
 
 	xdg.configFile."emacs".source =

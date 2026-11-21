@@ -227,6 +227,18 @@
 (use-package project
   :straight nil
   :ensure nil
+  :preface
+  (defun my/project-open ()
+    "Open a project with a blank editor and Treemacs."
+    (interactive)
+    (let* ((root (project-root (project-current t)))
+           (buffer (get-buffer-create "*project-start*")))
+      (with-current-buffer buffer
+        (setq-local default-directory root))
+      (switch-to-buffer buffer)
+      (require 'treemacs)
+      (treemacs-add-and-display-current-project)
+      (select-window (get-buffer-window buffer))))
   :commands (project-switch-project project-find-file project-compile
              project-dired project-eshell project-remember-projects-under
              project-forget-project)
@@ -234,13 +246,7 @@
   (project-vc-extra-root-markers '(".project"))
   ;; Keep project history with the other runtime files under var/.
   (project-list-file (expand-file-name "projects" user-emacs-directory))
-  (project-switch-commands
-   '((project-find-file "Find file" ?f)
-     (consult-ripgrep "Search project" ?s)
-     (consult-project-buffer "Switch buffer" ?b)
-     (project-dired "Open root directory" ?d)
-     (project-eshell "Open Eshell" ?e)
-     (project-compile "Compile / test" ?c))))
+  (project-switch-commands 'my/project-open))
 
 ;; in-buffer completion
 
@@ -460,11 +466,26 @@
   (add-to-list 'custom-theme-load-path "~/custom-emacs-config/themes/")
   (load-theme 'doom-gruvbox-material t))
 
+;; Startup dashboard with recent files, project.el projects, and bookmarks.
+(use-package dashboard
+  :demand t
+  :custom
+  (dashboard-startup-banner 'official)
+  (dashboard-banner-logo-title "Welcome back")
+  (dashboard-center-content t)
+  (dashboard-items '((recents . 5)
+                     (projects . 5)
+                     (bookmarks . 5)))
+  (dashboard-projects-backend 'project-el)
+  :config
+  (dashboard-setup-startup-hook))
+
 ;; tree-sitter
 (use-package treesit-auto
   :demand t
   :custom
-  (treesit-auto-install 'prompt)
+  ;; Grammars are supplied by Nix rather than compiled interactively.
+  (treesit-auto-install nil)
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
@@ -578,15 +599,15 @@
   :commands (apheleia-mode
               apheleia-global-mode))
 
-;; Restore sessions on startup and save periodically and on exit.
+;; Save sessions periodically and on exit; leave startup to the dashboard.
 (use-package easysession
   :demand t
   :custom
   (easysession-save-interval 60)
   (easysession-switch-to-save-session t)
-  (easysession-setup-load-session t)
+  (easysession-setup-load-session nil)
   :config
-  ;; Resume the last named session rather than always loading the default.
+  ;; Remember the last named session for manual session switching.
   (add-to-list 'savehist-additional-variables
                'easysession--current-session-name)
   (easysession-setup))
